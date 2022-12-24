@@ -1,26 +1,10 @@
-# inotifywaitgo
+package example
 
-Binding for inotifywait in golang, Fetch any directory event in your linux server easily. Fsnotify alternative
+import "github.com/pablodz/inotifywaitgo/inotifywaitgo"
 
-- Works with mounted volumes in Docker linux containers
+func Example() {
 
-Author: pablodz
-
-
-## Example
-
-```go
-package main
-
-import (
-	"log"
-
-	"github.com/pablodz/inotifywaitgo/inotifywaitgo"
-)
-
-func main() {
-
-	dir := "./"
+	dir := "./safasfsas"
 	files := make(chan []byte)
 	errors := make(chan []byte)
 
@@ -36,9 +20,6 @@ func main() {
 		Verbose: true,
 	})
 
-	log.Println("Watching for changes in", dir)
-	log.Println("Press Ctrl+C to stop")
-
 loopFiles:
 	for {
 		select {
@@ -50,4 +31,3 @@ loopFiles:
 		}
 	}
 }
-```
