@@ -3,7 +3,6 @@ package example
 import "github.com/pablodz/inotifywaitgo/inotifywaitgo"
 
 func Example() {
-
 	dir := "./safasfsas"
 	files := make(chan []byte)
 	errors := make(chan []byte)

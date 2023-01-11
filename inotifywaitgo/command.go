@@ -7,7 +7,6 @@ import (
 )
 
 func GenerateBashCommands(s *Settings) ([]string, error) {
-
 	if s.Options == nil {
 		return nil, errors.New(OPT_NIL)
 	}
@@ -51,7 +50,6 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 	outCmd = append(outCmd, strings.Join(baseCmd[2:], " "))
 
 	return outCmd, nil
-
 }
 
 // function that checks if a string is in a slice of strings
