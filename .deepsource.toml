@@ -1,0 +1,15 @@
+version = 1
+
+test_patterns = ["**_test.go"]
+
+[[analyzers]]
+name = "go"
+
+  [analyzers.meta]
+  import_root = "github.com/pablodz/inotifywaitgo"
+
+[[transformers]]
+name = "gofumpt"
+
+[[transformers]]
+name = "gofmt"
