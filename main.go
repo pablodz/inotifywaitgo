@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	dir := "./"
 	files := make(chan []byte)
 	errors := make(chan []byte)

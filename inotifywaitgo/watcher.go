@@ -9,7 +9,6 @@ import (
 
 // Function that starts watching a path for new files and returns the file name (abspath) when a new file is finished writing
 func WatchPath(s *Settings) {
-
 	// Check if inotifywait is installed
 	ok, err := checkDependencies()
 	if !ok || err != nil {
