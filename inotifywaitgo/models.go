@@ -31,7 +31,7 @@ type OptionsInotify struct {
 const (
 	// A watched file or a file within a watched directory was read from.
 	EventAccess = "access"
-	//A watched file or a file within a watched directory was written to.
+	// A watched file or a file within a watched directory was written to.
 	EventModify = "modify"
 	// The metadata of a watched file or a file within a watched directory was modified.  This includes timestamps, file permissions, extended attributes etc.
 	EventAttrib = "attrib"
@@ -80,9 +80,11 @@ var VALID_EVENTS = []string{
 }
 
 /* ERRORS */
-const NOT_INSTALLED = "inotifywait is not installed"
-const OPT_NIL = "optionsInotify is nil"
-const DIR_EMPTY = "directory is empty"
-const INVALID_EVENT = "invalid event"
-const INVALID_OUTPUT = "invalid output"
-const DIR_NOT_EXISTS = "directory does not exists"
+const (
+	NOT_INSTALLED  = "inotifywait is not installed"
+	OPT_NIL        = "optionsInotify is nil"
+	DIR_EMPTY      = "directory is empty"
+	INVALID_EVENT  = "invalid event"
+	INVALID_OUTPUT = "invalid output"
+	DIR_NOT_EXISTS = "directory does not exists"
+)
