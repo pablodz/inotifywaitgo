@@ -36,4 +36,6 @@ loopFiles:
 			break loopFiles
 		}
 	}
+
+	log.Println("Stopped watching for changes in", dir)
 }
