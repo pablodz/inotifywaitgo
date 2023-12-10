@@ -4,9 +4,9 @@ type Settings struct {
 	// Directory to watch
 	Dir string
 	// Channel to send the file name to
-	OutFiles chan []byte
+	OutFiles chan string
 	// Channel to send errors to
-	ErrorChan chan []byte
+	ErrorChan chan error
 	// Options for inotifywait
 	Options *OptionsInotify
 	// Kill other inotifywait processes

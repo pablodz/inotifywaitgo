@@ -2,6 +2,7 @@ package inotifywaitgo
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"os/exec"
 	"strings"
@@ -12,14 +13,14 @@ func WatchPath(s *Settings) {
 	// Check if inotifywait is installed
 	ok, err := checkDependencies()
 	if !ok || err != nil {
-		s.ErrorChan <- []byte(NOT_INSTALLED)
+		s.ErrorChan <- fmt.Errorf(NOT_INSTALLED)
 		return
 	}
 
 	// check if dir exists
 	_, err = os.Stat(s.Dir)
 	if os.IsNotExist(err) {
-		s.ErrorChan <- []byte(DIR_NOT_EXISTS)
+		s.ErrorChan <- fmt.Errorf(DIR_NOT_EXISTS)
 		return
 	}
 
@@ -31,7 +32,7 @@ func WatchPath(s *Settings) {
 	// Generate bash command
 	cmdString, err := GenerateBashCommands(s)
 	if err != nil {
-		s.ErrorChan <- []byte(err.Error())
+		s.ErrorChan <- err
 		return
 	}
 
@@ -39,11 +40,11 @@ func WatchPath(s *Settings) {
 	cmd := exec.Command(cmdString[0], cmdString[1:]...)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		s.ErrorChan <- []byte(err.Error())
+		s.ErrorChan <- err
 		return
 	}
 	if err := cmd.Start(); err != nil {
-		s.ErrorChan <- []byte(err.Error())
+		s.ErrorChan <- err
 		return
 	}
 
@@ -53,7 +54,7 @@ func WatchPath(s *Settings) {
 		line := scanner.Text()
 		parts := strings.Split(line, " ")
 		if len(parts) < 2 {
-			s.ErrorChan <- []byte(INVALID_OUTPUT)
+			s.ErrorChan <- fmt.Errorf(INVALID_OUTPUT)
 			continue
 		}
 
@@ -61,6 +62,6 @@ func WatchPath(s *Settings) {
 		prefix := parts[0]
 		file := parts[len(parts)-1]
 		// Send the file name to the channel
-		s.OutFiles <- []byte(prefix + file)
+		s.OutFiles <- fmt.Sprintf("%s%s", prefix, file)
 	}
 }

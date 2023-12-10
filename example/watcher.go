@@ -1,11 +1,15 @@
-package example
+package main
 
-import "github.com/pablodz/inotifywaitgo/inotifywaitgo"
+import (
+	"fmt"
 
-func Example() {
-	dir := "./safasfsas"
-	files := make(chan []byte)
-	errors := make(chan []byte)
+	"github.com/pablodz/inotifywaitgo/inotifywaitgo"
+)
+
+func main() {
+	dir := "./"
+	files := make(chan string)
+	errors := make(chan error)
 
 	go inotifywaitgo.WatchPath(&inotifywaitgo.Settings{
 		Dir:       dir,
@@ -23,9 +27,9 @@ loopFiles:
 	for {
 		select {
 		case file := <-files:
-			println(string(file))
+			fmt.Printf("File: %s\n", file)
 		case err := <-errors:
-			println(string(err))
+			fmt.Printf("Error: %s\n", err)
 			break loopFiles
 		}
 	}
