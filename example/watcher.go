@@ -15,7 +15,7 @@ func main() {
 		Dir:       dir,
 		OutFiles:  files,
 		ErrorChan: errors,
-		Options: &inotifywaitgo.OptionsInotify{
+		Options: &inotifywaitgo.Options{
 			Recursive: true,
 			Events:    []string{inotifywaitgo.EventCloseWrite},
 			Monitor:   true,

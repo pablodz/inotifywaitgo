@@ -8,14 +8,14 @@ type Settings struct {
 	// Channel to send errors to
 	ErrorChan chan error
 	// Options for inotifywait
-	Options *OptionsInotify
+	Options *Options
 	// Kill other inotifywait processes
 	KillOthers bool
 	// verbose
 	Verbose bool
 }
 
-type OptionsInotify struct {
+type Options struct {
 	// Watch the specified file or directory.  If this option is not specified, inotifywait will watch the current working directory.
 	Events []string
 	// Print the name of the file that triggered the event.
