@@ -45,8 +45,7 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 
 	// join baseCmd from third to last element
 	var outCmd []string
-	outCmd = append(outCmd, baseCmd[0])
-	outCmd = append(outCmd, baseCmd[1])
+	outCmd = append(outCmd, baseCmd[0:1]...)
 	outCmd = append(outCmd, strings.Join(baseCmd[2:], " "))
 
 	return outCmd, nil
