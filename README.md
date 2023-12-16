@@ -25,4 +25,4 @@ sudo pacman -S inotify-tools
 
 ## Example
 
-[Example](example/watcher.go)
+[Example](example/main.go)
