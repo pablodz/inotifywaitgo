@@ -3,6 +3,7 @@ package inotifywaitgo
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -51,6 +52,7 @@ func WatchPath(s *Settings) {
 	// Read the output of inotifywait and split it into lines
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
+		log.Println(scanner.Text())
 		line := scanner.Text()
 		parts := strings.Split(line, " ")
 		if len(parts) < 2 {

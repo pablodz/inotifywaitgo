@@ -17,7 +17,7 @@ type Settings struct {
 
 type Options struct {
 	// Watch the specified file or directory.  If this option is not specified, inotifywait will watch the current working directory.
-	Events []string
+	Events []EVENT
 	// Print the name of the file that triggered the event.
 	Format string
 	// Watch all subdirectories of any directories passed as arguments.  Watches will be set up recursively to an unlimited depth.  Symbolic links are not traversed.  Newly created subdirectories will also be watched.
@@ -61,22 +61,78 @@ const (
 	EventUnmount = "unmount"
 )
 
-var VALID_EVENTS = []string{
-	EventAccess,
-	EventModify,
-	EventAttrib,
-	EventCloseWrite,
-	EventCloseNowrite,
-	EventClose,
-	EventOpen,
-	EventMovedTo,
-	EventMovedFrom,
-	EventMove,
-	EventMoveSelf,
-	EventCreate,
-	EventDelete,
-	EventDeleteSelf,
-	EventUnmount,
+type EVENT int
+
+const (
+	ACCESS = iota + 1000
+	MODIFY
+	ATTRIB
+	CLOSE_WRITE
+	CLOSE_NOWRITE
+	CLOSE
+	OPEN
+	MOVED_TO
+	MOVED_FROM
+	MOVE
+	MOVE_SELF
+	CREATE
+	DELETE
+	DELETE_SELF
+	UNMOUNT
+)
+
+var EVENT_MAP = map[int]string{
+	ACCESS:        EventAccess,
+	MODIFY:        EventModify,
+	ATTRIB:        EventAttrib,
+	CLOSE_WRITE:   EventCloseWrite,
+	CLOSE_NOWRITE: EventCloseNowrite,
+	CLOSE:         EventClose,
+	OPEN:          EventOpen,
+	MOVED_TO:      EventMovedTo,
+	MOVED_FROM:    EventMovedFrom,
+	MOVE:          EventMove,
+	MOVE_SELF:     EventMoveSelf,
+	CREATE:        EventCreate,
+	DELETE:        EventDelete,
+	DELETE_SELF:   EventDeleteSelf,
+	UNMOUNT:       EventUnmount,
+}
+
+var EVENT_MAP_REVERSE = map[string]int{
+	EventAccess:       ACCESS,
+	EventModify:       MODIFY,
+	EventAttrib:       ATTRIB,
+	EventCloseWrite:   CLOSE_WRITE,
+	EventCloseNowrite: CLOSE_NOWRITE,
+	EventClose:        CLOSE,
+	EventOpen:         OPEN,
+	EventMovedTo:      MOVED_TO,
+	EventMovedFrom:    MOVED_FROM,
+	EventMove:         MOVE,
+	EventMoveSelf:     MOVE_SELF,
+	EventCreate:       CREATE,
+	EventDelete:       DELETE,
+	EventDeleteSelf:   DELETE_SELF,
+	EventUnmount:      UNMOUNT,
+}
+
+var VALID_EVENTS = []int{
+	ACCESS,
+	MODIFY,
+	ATTRIB,
+	CLOSE_WRITE,
+	CLOSE_NOWRITE,
+	CLOSE,
+	OPEN,
+	MOVED_TO,
+	MOVED_FROM,
+	MOVE,
+	MOVE_SELF,
+	CREATE,
+	DELETE,
+	DELETE_SELF,
+	UNMOUNT,
 }
 
 /* ERRORS */

@@ -16,7 +16,7 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 	}
 
 	baseCmd := []string{
-		"bash", "-c", "inotifywait",
+		"inotifywait",
 	}
 
 	if s.Options.Monitor {
@@ -33,28 +33,33 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 		baseCmd = append(baseCmd, "-e")
 		for _, event := range s.Options.Events {
 			// if event not in VALID_EVENTS
-			if !contains(VALID_EVENTS, event) {
+			if !contains(VALID_EVENTS, int(event)) {
 				return nil, errors.New(INVALID_EVENT)
 			}
-			baseCmd = append(baseCmd, event)
+			baseCmd = append(baseCmd, EVENT_MAP[int(event)]+" ")
 		}
 	}
 	if s.Verbose {
 		fmt.Println("baseCmd:", baseCmd)
 	}
 
-	// join baseCmd from third to last element
+	// remove spaces on all elements
 	var outCmd []string
-	outCmd = append(outCmd, baseCmd[0:1]...)
-	outCmd = append(outCmd, strings.Join(baseCmd[2:], " "))
+	for _, v := range baseCmd {
+		outCmd = append(outCmd, strings.TrimSpace(v))
+	}
+
+	if s.Verbose {
+		fmt.Println("baseCmd:", outCmd)
+	}
 
 	return outCmd, nil
 }
 
 // function that checks if a string is in a slice of strings
-func contains(slice []string, s string) bool {
+func contains[T string | int](slice []T, item T) bool {
 	for _, v := range slice {
-		if v == s {
+		if v == item {
 			return true
 		}
 	}

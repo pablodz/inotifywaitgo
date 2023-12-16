@@ -17,8 +17,10 @@ func main() {
 		ErrorChan: errors,
 		Options: &inotifywaitgo.Options{
 			Recursive: true,
-			Events:    []string{inotifywaitgo.EventCloseWrite},
-			Monitor:   true,
+			Events: []inotifywaitgo.EVENT{
+				inotifywaitgo.CLOSE_WRITE,
+			},
+			Monitor: true,
 		},
 		Verbose: true,
 	})
