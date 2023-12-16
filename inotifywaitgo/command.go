@@ -33,14 +33,11 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 		baseCmd = append(baseCmd, "-e")
 		for _, event := range s.Options.Events {
 			// if event not in VALID_EVENTS
-			if !contains(VALID_EVENTS, int(event)) {
+			if !Contains(VALID_EVENTS, int(event)) {
 				return nil, errors.New(INVALID_EVENT)
 			}
 			baseCmd = append(baseCmd, EVENT_MAP[int(event)]+" ")
 		}
-	}
-	if s.Verbose {
-		fmt.Println("baseCmd:", baseCmd)
 	}
 
 	// remove spaces on all elements
@@ -57,7 +54,7 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 }
 
 // function that checks if a string is in a slice of strings
-func contains[T string | int](slice []T, item T) bool {
+func Contains[T string | int](slice []T, item T) bool {
 	for _, v := range slice {
 		if v == item {
 			return true

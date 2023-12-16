@@ -4,7 +4,7 @@ type Settings struct {
 	// Directory to watch
 	Dir string
 	// Channel to send the file name to
-	OutFiles chan string
+	FileEvents chan FileEvent
 	// Channel to send errors to
 	ErrorChan chan error
 	// Options for inotifywait
@@ -80,6 +80,11 @@ const (
 	DELETE_SELF
 	UNMOUNT
 )
+
+type FileEvent struct {
+	Filename string
+	Events   []EVENT
+}
 
 var EVENT_MAP = map[int]string{
 	ACCESS:        EventAccess,

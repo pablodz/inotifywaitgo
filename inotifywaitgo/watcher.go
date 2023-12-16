@@ -62,8 +62,32 @@ func WatchPath(s *Settings) {
 
 		// Extract the input file name from the inotifywait output
 		prefix := parts[0]
-		file := parts[len(parts)-1]
+		file := parts[2]
+
+		eventsStr := strings.Split(parts[1], ",")
+		if s.Verbose {
+			for _, eventStr := range eventsStr {
+				log.Printf("eventStr: <%s>, <%s>", eventStr, line)
+			}
+		}
+		eventsEvents := []EVENT{}
+
+		for _, eventStr := range eventsStr {
+			eventStr = strings.ToLower(eventStr)
+			event, ok := EVENT_MAP_REVERSE[eventStr]
+			if !ok {
+				s.ErrorChan <- fmt.Errorf("invalid eventStr: <%s>, <%s>", eventStr, line)
+				continue
+			}
+			eventsEvents = append(eventsEvents, EVENT(event))
+		}
+
+		event := FileEvent{
+			Filename: prefix + file,
+			Events:   eventsEvents,
+		}
+
 		// Send the file name to the channel
-		s.OutFiles <- fmt.Sprintf("%s%s", prefix, file)
+		s.FileEvents <- event
 	}
 }
