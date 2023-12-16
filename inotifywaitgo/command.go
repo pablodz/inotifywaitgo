@@ -53,7 +53,7 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 	return outCmd, nil
 }
 
-// function that checks if a string is in a slice of strings
+// Contains checks if a slice contains an item
 func Contains[T string | int](slice []T, item T) bool {
 	for _, v := range slice {
 		if v == item {

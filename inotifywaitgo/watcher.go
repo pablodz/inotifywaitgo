@@ -70,7 +70,7 @@ func WatchPath(s *Settings) {
 				log.Printf("eventStr: <%s>, <%s>", eventStr, line)
 			}
 		}
-		eventsEvents := []EVENT{}
+		var eventsEvents []EVENT
 
 		for _, eventStr := range eventsStr {
 			eventStr = strings.ToLower(eventStr)
