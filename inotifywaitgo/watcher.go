@@ -62,7 +62,7 @@ func WatchPath(s *Settings) {
 
 		// Extract the input file name from the inotifywait output
 		prefix := parts[0]
-		file := parts[2]
+		file := strings.Join(parts[2:], " ")
 
 		eventsStr := strings.Split(parts[1], ",")
 		if s.Verbose {
