@@ -28,18 +28,18 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 		baseCmd = append(baseCmd, "-r")
 	}
 
-	baseCmd = append(baseCmd, s.Dir)
-
 	if len(s.Options.Events) > 0 {
-		baseCmd = append(baseCmd, "-e")
 		for _, event := range s.Options.Events {
 			// if event not in VALID_EVENTS
 			if !Contains(VALID_EVENTS, int(event)) {
 				return nil, errors.New(INVALID_EVENT)
 			}
-			baseCmd = append(baseCmd, EVENT_MAP[int(event)]+" ")
+			baseCmd = append(baseCmd, "-e ")
+			baseCmd = append(baseCmd, EVENT_MAP[int(event)])
 		}
 	}
+
+	baseCmd = append(baseCmd, s.Dir)
 
 	// remove spaces on all elements
 	var outCmd []string
