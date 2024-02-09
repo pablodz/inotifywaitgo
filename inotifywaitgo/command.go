@@ -17,6 +17,7 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 
 	baseCmd := []string{
 		"inotifywait",
+		"-c", // switch to CSV output
 	}
 
 	if s.Options.Monitor {

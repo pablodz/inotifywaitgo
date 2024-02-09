@@ -2,6 +2,7 @@ package inotifywaitgo
 
 import (
 	"bufio"
+	"encoding/csv"
 	"fmt"
 	"log"
 	"os"
@@ -54,8 +55,11 @@ func WatchPath(s *Settings) {
 	for scanner.Scan() {
 		log.Println(scanner.Text())
 		line := scanner.Text()
-		parts := strings.Split(line, " ")
-		if len(parts) < 2 {
+
+		r := csv.NewReader(strings.NewReader(line))
+
+		parts, err := r.Read()
+		if err != nil || len(parts) < 2 {
 			s.ErrorChan <- fmt.Errorf(INVALID_OUTPUT)
 			continue
 		}
