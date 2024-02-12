@@ -34,8 +34,7 @@ func GenerateBashCommands(s *Settings) ([]string, error) {
 			if !Contains(VALID_EVENTS, int(event)) {
 				return nil, errors.New(INVALID_EVENT)
 			}
-			baseCmd = append(baseCmd, "-e ")
-			baseCmd = append(baseCmd, EVENT_MAP[int(event)])
+			baseCmd = append(baseCmd, "-e ", EVENT_MAP[int(event)])
 		}
 	}
 
