@@ -5,18 +5,18 @@ import (
 	"os/exec"
 )
 
-// Function to checkDependencies if inotifywait is installed
+// CheckDependencies verifies if inotifywait is installed.
 func checkDependencies() (bool, error) {
 	cmd := exec.Command("bash", "-c", "which inotifywait")
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return false, err
 	}
+
 	if err := cmd.Start(); err != nil {
 		return false, err
 	}
 
-	// Read the output of inotifywait and split it into lines
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -24,5 +24,10 @@ func checkDependencies() (bool, error) {
 			return true, nil
 		}
 	}
+
+	if err := scanner.Err(); err != nil {
+		return false, err
+	}
+
 	return false, nil
 }
