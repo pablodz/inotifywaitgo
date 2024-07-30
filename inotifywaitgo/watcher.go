@@ -53,7 +53,10 @@ func WatchPath(s *Settings) {
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		line := scanner.Text()
-		log.Println(line)
+
+		if s.Verbose {
+			log.Println(line)
+		}
 
 		parts, err := parseLine(line)
 		if err != nil || len(parts) < 2 {
