@@ -22,7 +22,6 @@ brew install inotify-tools
 sudo pacman -S inotify-tools
 ```
 
-
 ## Example
 
 [Example](example/main.go)

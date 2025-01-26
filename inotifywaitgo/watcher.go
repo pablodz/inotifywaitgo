@@ -29,8 +29,8 @@ func WatchPath(s *Settings) {
 		killOthers()
 	}
 
-	// Generate bash command
-	cmdString, err := GenerateBashCommands(s)
+	// Generate shell command
+	cmdString, err := GenerateShellCommands(s)
 	if err != nil {
 		s.ErrorChan <- err
 		return

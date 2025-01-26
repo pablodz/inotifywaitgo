@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func GenerateBashCommands(s *Settings) ([]string, error) {
+func GenerateShellCommands(s *Settings) ([]string, error) {
 	if s.Options == nil {
 		return nil, errors.New(OPT_NIL)
 	}
