@@ -3,6 +3,7 @@ package inotifywaitgo
 import (
 	"bufio"
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -14,13 +15,13 @@ import (
 func WatchPath(s *Settings) {
 	// Check if inotifywait is installed
 	if ok, err := checkDependencies(); !ok || err != nil {
-		s.ErrorChan <- fmt.Errorf(NOT_INSTALLED)
+		s.ErrorChan <- errors.New(NOT_INSTALLED)
 		return
 	}
 
 	// Check if the directory exists
 	if _, err := os.Stat(s.Dir); os.IsNotExist(err) {
-		s.ErrorChan <- fmt.Errorf(DIR_NOT_EXISTS)
+		s.ErrorChan <- errors.New(DIR_NOT_EXISTS)
 		return
 	}
 
@@ -57,7 +58,7 @@ func WatchPath(s *Settings) {
 
 		parts, err := parseLine(line)
 		if err != nil || len(parts) < 2 {
-			s.ErrorChan <- fmt.Errorf(INVALID_OUTPUT)
+			s.ErrorChan <- errors.New(INVALID_OUTPUT)
 			continue
 		}
 
