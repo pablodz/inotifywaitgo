@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"log/slog"
 
 	"github.com/pablodz/inotifywaitgo/inotifywaitgo"
 )
@@ -24,6 +25,7 @@ func main() {
 			Monitor: true,
 		},
 		Verbose: true,
+		Log:     slog.Default(),
 	})
 
 loopFiles:
